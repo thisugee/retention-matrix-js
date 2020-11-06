@@ -35,7 +35,6 @@ class Retention {
    * and set initial cohort size
    *
    * @param cohortKey
-   * @param timestampFrom
    * @param users
    */
   private setInitialUsers(cohortKey: number, users) {
