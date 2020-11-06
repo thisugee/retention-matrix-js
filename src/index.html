@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Retention Table</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="styles/reset.css" />
+    <link rel="stylesheet" href="styles/styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div class="retention-table-header">
+        <h1>Retention Table</h1>
+
+        <div class="switch">
+          <input
+            type="checkbox"
+            name="relative-toggle"
+            class="switch-checkbox"
+            id="relative-toggle"
+          />
+          <label class="switch-label" for="relative-toggle">
+            <span class="switch-inner"></span>
+            <span class="switch-button"></span>
+          </label>
+        </div>
+      </div>
+
+      <div id="table" class="retention-table"></div>
+    </div>
+    <script src="index.ts"></script>
+  </body>
+</html>

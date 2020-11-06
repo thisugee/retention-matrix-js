@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "sourceMap": true,
+        "strict": true,
+        "noImplicitReturns": true,
+        "noImplicitAny": false,
+        "module": "es6",
+        "moduleResolution": "node",
+        "target": "ESNext",
+        "allowJs": true,
+        "lib": ["es2017", "dom"],
+    },
+    "include": [
+        "./src/**/*"
+    ]
+}
