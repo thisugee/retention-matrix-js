@@ -27,13 +27,13 @@ Retention data will look like this:
 [
   {
     date_from: 'Nov 1, 2020',
-    date_to: 'Nov 1, 2020',
+    date_to: 'Nov 7, 2020',
     timestamp_from: 1604188800,
-    timestamp_to: 1604189800,
+    timestamp_to: 1604707200,
     retention_abs: { 
       cohort_size: 20,
-      cohort_group_1: 18,
-      cohort_group_2: 14,
+      cohort_period_1: 18,
+      cohort_period_2: 14,
       /* cohort_group_n: x */
     },
   }
