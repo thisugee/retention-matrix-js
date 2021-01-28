@@ -22,19 +22,19 @@ An `Array` of user objects that contain a key `orders` that has an `Array` of al
 ]
 ```
 
-Retention data will look like this:
+Retention data will look like this for each cohort:
 ```js
 [
   {
-    date_from: 'Nov 1, 2020',
-    date_to: 'Nov 1, 2020',
-    timestamp_from: 1604188800,
-    timestamp_to: 1604189800,
-    retention_abs: { 
-      cohort_size: 20,
-      cohort_group_1: 18,
-      cohort_group_2: 14,
-      /* cohort_group_n: x */
+    from_date: 'Nov 1, 2020',
+    to_date: 'Nov 7, 2020',
+    from_timestamp: 1604188800,
+    to_timestamp: 1604189800,
+    retention: { 
+      size: 20, // total size of cohort
+      period_1: 18, // retention in first period
+      period_2: 14, // retention in second period
+      /* period_n: x */ // retention in nth period
     },
   }
   /* ...cohorts */
