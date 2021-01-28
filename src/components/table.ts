@@ -16,10 +16,9 @@ const renderRow = (row, relative = false) => {
 				${renderCell(row.date_from, 'color-0')}
 				${render(
           cells.map((cell) => {
-            const value =
-              !relative || cell === 'cohort_size'
-                ? row['retention_abs'][cell]
-                : `${row['retention_rel'][cell].toFixed(2)}%`
+            const value = !relative
+              ? row['retention_abs'][cell]
+              : `${row['retention_rel'][cell].toFixed(2)}%`
 
             const colorCode =
               cell === 'cohort_size'
