@@ -10,16 +10,16 @@ class Retention {
     this.count = Math.floor((params.end - params.start) / params.period)
 
     for (let i = 1; i <= this.count; i++) {
-      const timestamp_from = params.start + params.period * (i - 1)
-      const timestamp_to = timestamp_from + params.period
+      const from_timestamp = params.start + params.period * (i - 1)
+      const to_timestamp = from_timestamp + params.period
 
       this.cohorts[i] = {
-        date_from: timestampToDate(timestamp_from, true),
-        date_to: timestampToDate(timestamp_to),
-        timestamp_from,
-        timestamp_to,
-        retention_abs: {}, // Absolute retention
-        retention_rel: {}, // Relative retention (%)
+        from_date: timestampToDate(from_timestamp, true),
+        to_date: timestampToDate(to_timestamp),
+        from_timestamp,
+        to_timestamp,
+        absolute: {}, // Absolute retention
+        relative: {}, // Relative retention (%)
         users: [],
       }
     }
@@ -40,19 +40,19 @@ class Retention {
   private setInitialUsers(cohortKey: number, users) {
     const cohort = this.cohorts[cohortKey]
 
-    const cohortTimestampFrom = cohort.timestamp_from
-    const cohortTimestampTo = cohortTimestampFrom + this.params.period
+    const cohortFromTimestamp = cohort.from_timestamp
+    const cohortToTimestamp = cohortFromTimestamp + this.params.period
 
     const cohortUsers = users.filter((user) => {
       const firstOrderDate = this.getFirstOrderDate(user.orders)
       return (
-        firstOrderDate > Number(cohortTimestampFrom) &&
-        firstOrderDate < Number(cohortTimestampTo)
+        firstOrderDate > Number(cohortFromTimestamp) &&
+        firstOrderDate < Number(cohortToTimestamp)
       )
     })
     this.cohorts[cohortKey].users = cohortUsers
-    this.cohorts[cohortKey].retention_abs[`cohort_size`] = cohortUsers.length
-    this.cohorts[cohortKey].retention_rel[`cohort_size`] = 100
+    this.cohorts[cohortKey].absolute[`size`] = cohortUsers.length
+    this.cohorts[cohortKey].relative[`size`] = 100
   }
 
   /**
@@ -65,29 +65,29 @@ class Retention {
     const cohort = this.cohorts[cohortKey]
     const cohortUsers = cohort.users
 
-    const cohortGroupKey = `cohort_period_${cohortGroup}`
-    const cohortGroupTimestampFrom =
-      cohort.timestamp_from + this.params.period * cohortGroup
-    const cohortGroupTimestampTo = cohortGroupTimestampFrom + this.params.period
+    const cohortGroupKey = `period_${cohortGroup}`
+    const cohortGroupFromTimestamp =
+      cohort.from_timestamp + this.params.period * cohortGroup
+    const cohortGroupToTimestamp = cohortGroupFromTimestamp + this.params.period
 
     const retainedUsers = cohortUsers.filter((user) => {
       return user.orders.some((order) => {
         return (
-          order.created_at > Number(cohortGroupTimestampFrom) &&
-          order.created_at < Number(cohortGroupTimestampTo)
+          order.created_at > Number(cohortGroupFromTimestamp) &&
+          order.created_at < Number(cohortGroupToTimestamp)
         )
       })
     })
 
-    this.cohorts[cohortKey].retention_abs[cohortGroupKey] = retainedUsers.length
-    this.cohorts[cohortKey].retention_rel[cohortGroupKey] =
+    this.cohorts[cohortKey].absolute[cohortGroupKey] = retainedUsers.length
+    this.cohorts[cohortKey].relative[cohortGroupKey] =
       (retainedUsers.length * 100) / cohortUsers.length
   }
 
   generateData(users) {
     const cohortsArray = Object.entries(this.cohorts)
 
-    cohortsArray.forEach(([cohortKey, cohortData]: any[]) => {
+    cohortsArray.forEach(([cohortKey]: any[]) => {
       this.setInitialUsers(cohortKey, users)
 
       if (cohortKey <= cohortsArray.length) {

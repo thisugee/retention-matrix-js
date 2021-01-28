@@ -9,21 +9,21 @@ const renderCell = (cell, classes?: string) => {
 }
 
 const renderRow = (row, relative = false) => {
-  const cells: string[] = Object.keys(row.retention_rel)
+  const groups: string[] = Object.keys(row.relative) // row cells
 
   return `
 			<div class="table-row">
-				${renderCell(row.date_from, 'color-0')}
+				${renderCell(row.from_date, 'color-0')}
 				${render(
-          cells.map((cell) => {
+          groups.map((group) => {
             const value = !relative
-              ? row['retention_abs'][cell]
-              : `${row['retention_rel'][cell].toFixed(2)}%`
+              ? row['absolute'][group]
+              : `${row['relative'][group].toFixed(2)}%`
 
             const colorCode =
-              cell === 'cohort_size'
+              group === 'size'
                 ? '0'
-                : Math.floor(row['retention_rel'][cell] / 10)
+                : Math.floor(row['relative'][group] / 10)
 
             return renderCell(value, `center number color-${colorCode}`)
           })
@@ -34,7 +34,7 @@ const renderRow = (row, relative = false) => {
 
 export const renderTable = (container, retention, relative = false) => {
   const headers = Object.keys(retention)
-  const rows = Object.values(retention)
+  const cohorts = Object.values(retention)
 
   const table = `
 		<div class="retention-table">
@@ -47,7 +47,7 @@ export const renderTable = (container, retention, relative = false) => {
           })
         )}
 			</div>
-			${render(rows.map((row) => renderRow(row, relative)))}
+			${render(cohorts.map((cohort) => renderRow(cohort, relative)))}
 		</div>
 	`
 
