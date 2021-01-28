@@ -35,7 +35,6 @@ class Retention {
    * and set initial cohort size
    *
    * @param cohortKey
-   * @param timestampFrom
    * @param users
    */
   private setInitialUsers(cohortKey: number, users) {
@@ -66,7 +65,7 @@ class Retention {
     const cohort = this.cohorts[cohortKey]
     const cohortUsers = cohort.users
 
-    const cohortGroupKey = `cohort_group_${cohortGroup}`
+    const cohortGroupKey = `cohort_period_${cohortGroup}`
     const cohortGroupTimestampFrom =
       cohort.timestamp_from + this.params.period * cohortGroup
     const cohortGroupTimestampTo = cohortGroupTimestampFrom + this.params.period
