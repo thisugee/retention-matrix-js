@@ -12,13 +12,13 @@ An `Array` of users with `orders` placed by them, as seen below:
   {
     id: 1,
     name: 'User',
-    /* ... */
+    // ...
     orders: [
       { id: 1, /* ... */ created_at: 1604188900}
-      /* ...orders */
+      // ...orders
     ]
   }
-  /* ...users */
+  // ...users
 ]
 ```
 
@@ -34,10 +34,10 @@ Retention data will look like this for each cohort:
       size: 20, // total size of cohort
       period_1: 18, // retention in first period
       period_2: 14, // retention in second period
-      /* period_n: x */ // retention in nth period
+      // period_n: x // retention in nth period
     },
   }
-  /* ...cohorts */
+  // ...cohorts
 ]
 ```
 Retention table will look like this:
