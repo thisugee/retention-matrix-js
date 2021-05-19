@@ -5,7 +5,7 @@ User retention analysis for an e-commerce app.
 Renders retention matrix to show how many users returned to an the app to place another order after their first order. 
 
 ### Data Set
-An `Array` of user objects that contain a key `orders` that has an `Array` of all the orders placed by the user. 
+An `Array` of users with `orders` placed by them, as seen below: 
 
 ```js
 [
